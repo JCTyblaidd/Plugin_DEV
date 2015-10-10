@@ -3,6 +3,18 @@ package com.jct.portal.util;
 
 public class PortalStorage {
 	
+	public static void main(String[] args) {
+		//TEST LAUNCH IGNORE
+		System.out.println("THIS IS A TEST LAUNCH");
+		PortalStorage test = new PortalStorage(new Vec3(0,0,0),new Vec3(0,10,7));
+		
+		Vec6 ret = test.calculate_differential(new Vec3(-5,3,3), 20);
+		
+		System.out.println("OUTPUT:" + ret.vec1.x + "," + ret.vec1.y + "," + ret.vec1.z + "  :  " + ret.vec2.x + "," + ret.vec2.y + "," + ret.vec2.z);
+	}
+	
+	
+	
 	//X = parrallel Y = perp
 	
 	public Vec3 point1; //1 -> 2 //XYZ  //THE X must be the same for all of them
@@ -35,18 +47,20 @@ public class PortalStorage {
 				return new Vec6(point1.copy(),point2.diff(use_dist,0,0));
 			}
 		}else { //Then do some mathematicas
-			int z_max = point2.z;
-			int z_min = point1.z;
-			int z_max_d = z_max - coordinate.z;
-			int z_min_d = coordinate.z - z_min;
+			float z_max = point2.z;
+			float z_min = point1.z;
+			float z_max_d = z_max - coordinate.z;
+			float z_min_d = coordinate.z - z_min;
 			// % x to z  * new z
-			int res_z_min = (int)Math.floor((z_min_d / xdiff) * use_dist * 1.5);
-			int res_z_max = (int)Math.floor((z_max_d / xdiff) * use_dist * 1.5);
-			
+			int res_z_min =(int) ((z_min_d / xdiff) * use_dist * 1.2);
+			int res_z_max =(int) ((z_max_d / xdiff) * use_dist * 1.2);
+			//DEBUG
+			System.out.println(z_max_d + " :::: " +z_min_d + "::::" + xdiff);
+			System.out.println(res_z_min + " :::: " +res_z_max);
 			if(pos) {
-				return new Vec6(point1.diff(0, 0, -res_z_min),point2.diff(-use_dist,0,res_z_max));
+				return new Vec6(point1.diff(0, 0, 0-res_z_min),point2.diff(0-use_dist,0,res_z_max));
 			}else {
-				return new Vec6(point1.diff(0, 0, -res_z_min),point2.diff(use_dist,0,res_z_min));
+				return new Vec6(point1.diff(0, 0, 0-res_z_min),point2.diff(use_dist,0,res_z_min));
 			}
 		}
 	}
