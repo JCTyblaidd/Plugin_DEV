@@ -54,9 +54,6 @@ public class PortalStorage {
 			// % x to z  * new z
 			int res_z_min =(int) ((z_min_d / xdiff) * use_dist * 1.2);
 			int res_z_max =(int) ((z_max_d / xdiff) * use_dist * 1.2);
-			//DEBUG
-			System.out.println(z_max_d + " :::: " +z_min_d + "::::" + xdiff);
-			System.out.println(res_z_min + " :::: " +res_z_max);
 			if(pos) {
 				return new Vec6(point1.diff(0, 0, 0-res_z_min),point2.diff(0-use_dist,0,res_z_max));
 			}else {
